@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://cko86e8ii46fs"
-path="res://.godot/imported/Fredoka.ttf-38db4f924b441151c6642ef65fe93e1f.fontdata"
+uid="uid://rmopkikl0v1d"
+path="res://.godot/imported/JetBrainsMono.ttf-8687b3ef53786600db7b41962d23a6bd.fontdata"
 
 [deps]
 
-source_file="res://assets/fonts/Fredoka.ttf"
-dest_files=["res://.godot/imported/Fredoka.ttf-38db4f924b441151c6642ef65fe93e1f.fontdata"]
+source_file="res://assets/fonts/JetBrainsMono.ttf"
+dest_files=["res://.godot/imported/JetBrainsMono.ttf-8687b3ef53786600db7b41962d23a6bd.fontdata"]
 
 [params]
 

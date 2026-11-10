@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://branp8taludty"
-path="res://.godot/imported/Nunito.ttf-9a0d659c7c014361f3d844547f0a9ee8.fontdata"
+uid="uid://lf24oy5mi1mf"
+path="res://.godot/imported/ArchivoBlack.ttf-6256301e33566f4fd7e719a84d15c362.fontdata"
 
 [deps]
 
-source_file="res://assets/fonts/Nunito.ttf"
-dest_files=["res://.godot/imported/Nunito.ttf-9a0d659c7c014361f3d844547f0a9ee8.fontdata"]
+source_file="res://assets/fonts/ArchivoBlack.ttf"
+dest_files=["res://.godot/imported/ArchivoBlack.ttf-6256301e33566f4fd7e719a84d15c362.fontdata"]
 
 [params]
 

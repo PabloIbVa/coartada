@@ -49,3 +49,15 @@ The concept board's pictures are saved in their assets (My Assets). Look at one 
 - La vecina entrometida (picture, asset 730aa0c7-531d-4351-bafb-0aad015b0b5d): https://res.cloudinary.com/dol86wsz1/image/upload/v1794343580/summer_art/img-6fdb39f4-c7db-43cc-a540-7da2de744c53-1794343579744-0_1794343579745_lrov1o8e.png
 - Aula universitaria en examen (picture, asset d57eb897-6b95-4512-85f7-fd64b400f6bd): https://res.cloudinary.com/dol86wsz1/image/upload/v1794343453/summer_art/img-6fdb39f4-c7db-43cc-a540-7da2de744c53-1794343453134-0_1794343453134_iok5ef46.png
 - El chef en apuros (picture, asset 93e59b4e-ab0c-4f54-a74b-6f6f4c41727e): https://res.cloudinary.com/dol86wsz1/image/upload/v1794343584/summer_art/img-6fdb39f4-c7db-43cc-a540-7da2de744c53-1794343583901-0_1794343583901_ekh0glg1.png
+
+## Ajustes posteriores (v2, 2026-11-10)
+El dueño del juego cambió la dirección del proyecto. Esto manda sobre lo anterior:
+
+- **Sin personaje.** No hay protagonista ni universitario: el jugador solo inventa excusas para situaciones cotidianas en general.
+- **Sin ilustraciones en la ronda.** El contexto es solo texto: un título grande y un subtítulo corto. Nada de imágenes.
+- **Contextos cortos.** Se leen en un segundo: título grande ("Llegas 2 horas tarde a la cena familiar") y subtítulo que aprieta ("Todos están sentados. Tu abuela quiere oír algo creíble").
+- **Restricciones de palabras.** A partir de cierta ronda puede aparecer una palabra obligatoria, una palabra prohibida, o ambas más adelante. La dificultad decide desde cuándo.
+- **Diseño.** Dark Mode Neo-Brutalist con toques de Neo-Futurismo Tech / arcade cyber minimalista: fondo casi negro con rejilla, bordes rectos de 2 px, sombras duras desplazadas, bloques lima/cian/magenta, tipografía Archivo Black + Space Grotesk + JetBrains Mono.
+- **Pantalla de inicio.** Selector de dificultad (Fácil / Normal / Duro) y un apartado para apoyar al creador con dinero.
+- **Salir.** Botón de regreso al menú durante la ronda (con confirmación: se pierde el progreso) y en el final de partida.
+- La ilustración plana del brief original queda como referencia histórica, ya no se usa.

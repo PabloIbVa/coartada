@@ -1,34 +1,45 @@
 extends RefCounted
 
-## Puntúa una excusa de 0 a 100 con reglas de texto, sin red.
+## Puntúa una excusa de 0 a 100 sin red: causa, sustancia, fraseo y restricciones.
 
 const PASS_SCORE := 65
+const CAP_NO_CAUSE := 58
+const CAP_MISSING_WORD := 40
+const CAP_BANNED_WORD := 26
 
 const CONNECTORS: Array = [
 	"porque", "es que", "ya que", "pues", "resulta que", "debido a", "por eso",
 	"entonces", "asi que", "aunque", "mientras", "cuando", "despues", "justo",
 	"de repente", "en realidad", "la verdad", "te juro", "se me", "tuve que",
-	"olvide", "perdi", "me quede", "no alcanzo",
+	"olvide", "perdi", "me quede", "no alcanzo", "por culpa",
 ]
 
 
-static func evaluate(raw: String, word_limit: int) -> Dictionary:
+static func evaluate(raw: String, word_limit: int, include_word: String = "", exclude_word: String = "") -> Dictionary:
 	var text: String = raw.strip_edges()
 	var words: Array = _words(text)
 	var n: int = words.size()
 	var notes: Array = []
 
+	var include_ok: bool = include_word.is_empty() or _has_word(words, include_word)
+	var exclude_used: bool = not exclude_word.is_empty() and _has_word(words, exclude_word)
+
 	if n == 0:
+		var empty_notes: Array = ["No escribiste nada. El silencio también confiesa."]
+		if not include_word.is_empty():
+			empty_notes.append("Faltó «%s»." % include_word)
 		return {
 			"score": 0,
 			"passed": false,
-			"notes": ["No escribiste nada. El silencio también confiesa."],
+			"notes": empty_notes,
 			"words": 0,
+			"include_ok": include_ok,
+			"exclude_used": exclude_used,
 		}
 
 	var score: float = 0.0
 
-	# Sustancia: cuánto texto hay que leer (0-32).
+	# Sustancia: cuánta excusa hay que leer (0-32).
 	score += clampf(float(n) / 20.0, 0.0, 1.0) * 32.0
 	if n < 6:
 		score -= 15.0
@@ -56,7 +67,7 @@ static func evaluate(raw: String, word_limit: int) -> Dictionary:
 		var ratio: float = float(uniq.size()) / float(n)
 		score += clampf((ratio - 0.45) / 0.4, 0.0, 1.0) * 14.0
 		if ratio < 0.5:
-			notes.append("Repites las mismas tres palabras. Se nota.")
+			notes.append("Repites las mismas palabras. Se nota.")
 
 	# Fraseo y puntuación (0-11).
 	var sentences: int = 0
@@ -97,25 +108,61 @@ static func evaluate(raw: String, word_limit: int) -> Dictionary:
 	if n > word_limit:
 		score -= 10.0
 
-	var final_score: int = int(round(clampf(score, 0.0, 100.0)))
-	if found.is_empty() and final_score > 58:
-		final_score = 58
-	var passed: bool = final_score >= PASS_SCORE
+	# Restricciones de la ronda.
+	if not include_word.is_empty():
+		if include_ok:
+			score += 8.0
+		else:
+			notes.push_front("No usaste «%s» y era obligatoria." % include_word)
+	if exclude_used:
+		notes.push_front("Usaste «%s», que estaba prohibida." % exclude_word)
+
+	var final_score: float = clampf(score, 0.0, 100.0)
+	if found.is_empty():
+		final_score = minf(final_score, CAP_NO_CAUSE)
+	if not include_ok:
+		final_score = minf(final_score, CAP_MISSING_WORD)
+	if exclude_used:
+		final_score = minf(final_score, CAP_BANNED_WORD)
+
+	var graded: int = int(round(final_score))
+	var passed: bool = graded >= PASS_SCORE
 	if passed and notes.is_empty():
 		notes.append("Hay causa, hay detalle y cara de inocente.")
 	elif not passed and notes.is_empty():
 		notes.append("Le faltó detalle: qué pasó, cuándo y por qué.")
 
 	return {
-		"score": final_score,
+		"score": graded,
 		"passed": passed,
 		"notes": notes,
 		"words": n,
+		"include_ok": include_ok,
+		"exclude_used": exclude_used,
 	}
 
 
 static func word_count(text: String) -> int:
 	return _words(text).size()
+
+
+static func uses_word(text: String, word: String) -> bool:
+	if word.is_empty():
+		return false
+	return _has_word(_words(text), word)
+
+
+static func _has_word(words: Array, word: String) -> bool:
+	var target: String = _norm(word).strip_edges()
+	if target.is_empty():
+		return false
+	for w in words:
+		var token: String = String(w)
+		if token == target:
+			return true
+		if target.length() >= 4 and token.begins_with(target):
+			return true
+	return false
 
 
 static func _words(text: String) -> Array:
@@ -128,10 +175,10 @@ static func _words(text: String) -> Array:
 		if is_word:
 			cur += text[i]
 		elif cur.length() > 0:
-			out.append(cur.to_lower())
+			out.append(_norm(cur))
 			cur = ""
 	if cur.length() > 0:
-		out.append(cur.to_lower())
+		out.append(_norm(cur))
 	return out
 
 

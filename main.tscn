@@ -1,45 +1,73 @@
-[gd_scene format=3 uid="uid://cad8mx4mu0p0i"]
+[gd_scene load_steps=13 format=3]
 
 [ext_resource type="Theme" path="res://ui/theme.tres" id="1_theme"]
-[ext_resource type="Script" uid="uid://d4jbnubh5ofob" path="res://scripts/main.gd" id="2_main"]
-[ext_resource type="Script" uid="uid://cvwk7v1huilop" path="res://scripts/hearts.gd" id="3_hearts"]
-[ext_resource type="FontFile" uid="uid://cko86e8ii46fs" path="res://assets/fonts/Fredoka.ttf" id="4_fredoka"]
-[ext_resource type="FontFile" uid="uid://branp8taludty" path="res://assets/fonts/Nunito.ttf" id="5_nunito"]
-[ext_resource type="Texture2D" path="res://assets/art/universitario.png" id="6_hero"]
-[ext_resource type="Shader" path="res://ui/rounded_art.gdshader" id="7_artshader"]
+[ext_resource type="Script" path="res://scripts/main.gd" id="2_main"]
+[ext_resource type="Script" path="res://scripts/grid_bg.gd" id="3_grid"]
+[ext_resource type="Script" path="res://scripts/pips.gd" id="4_pips"]
+[ext_resource type="Script" path="res://scripts/segbar.gd" id="5_segbar"]
+[ext_resource type="FontFile" path="res://assets/fonts/ArchivoBlack.ttf" id="6_display"]
+[ext_resource type="FontFile" path="res://assets/fonts/JetBrainsMono.ttf" id="7_mono"]
 
-[sub_resource type="FontVariation" id="FV_display"]
-base_font = ExtResource("4_fredoka")
+[sub_resource type="FontVariation" id="FV_mono_bold"]
+base_font = ExtResource("7_mono")
 variation_opentype = {
-2003265652: 650.0
+2003265652: 700.0
 }
 
-[sub_resource type="StyleBoxFlat" id="SB_hero"]
-content_margin_left = 14.0
-content_margin_top = 14.0
-content_margin_right = 14.0
-content_margin_bottom = 14.0
-bg_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 44
-corner_radius_top_right = 44
-corner_radius_bottom_right = 44
-corner_radius_bottom_left = 44
-shadow_color = Color(0.133333, 0.188235, 0.360784, 0.12)
-shadow_size = 26
-shadow_offset = Vector2(0, 12)
-
-[sub_resource type="ShaderMaterial" id="SM_art"]
-shader = ExtResource("7_artshader")
-shader_parameter/rect_size = Vector2(400, 232)
-shader_parameter/corner_radius = 24.0
-
-[sub_resource type="FontVariation" id="FV_bold"]
-base_font = ExtResource("5_nunito")
+[sub_resource type="FontVariation" id="FV_mono"]
+base_font = ExtResource("7_mono")
 variation_opentype = {
-2003265652: 800.0
+2003265652: 400.0
 }
 
-[node name="Main" type="Control" unique_id=1420244913]
+[sub_resource type="StyleBoxFlat" id="SB_ghost"]
+content_margin_left = 18.0
+content_margin_top = 12.0
+content_margin_right = 18.0
+content_margin_bottom = 12.0
+bg_color = Color(0, 0, 0, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.168627, 0.168627, 0.211765, 1)
+
+[sub_resource type="StyleBoxFlat" id="SB_ghost_hover"]
+content_margin_left = 18.0
+content_margin_top = 12.0
+content_margin_right = 18.0
+content_margin_bottom = 12.0
+bg_color = Color(0.796078, 1, 0.239216, 0.12)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.796078, 1, 0.239216, 1)
+
+[sub_resource type="StyleBoxFlat" id="SB_ghost_pressed"]
+content_margin_left = 18.0
+content_margin_top = 13.0
+content_margin_right = 18.0
+content_margin_bottom = 11.0
+bg_color = Color(0.796078, 1, 0.239216, 0.2)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.796078, 1, 0.239216, 1)
+
+[sub_resource type="StyleBoxFlat" id="SB_dialog"]
+bg_color = Color(0.078431, 0.078431, 0.101961, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.796078, 1, 0.239216, 1)
+shadow_color = Color(0.223529, 0.882353, 1, 0.85)
+shadow_size = 0
+shadow_offset = Vector2(8, 8)
+
+[node name="Main" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -49,31 +77,41 @@ grow_vertical = 2
 theme = ExtResource("1_theme")
 script = ExtResource("2_main")
 
-[node name="BG" type="ColorRect" parent="." unique_id=803429027]
+[node name="BG" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.956863, 0.945098, 0.917647, 1)
+color = Color(0.031373, 0.031373, 0.039216, 1)
 
-[node name="UI" type="MarginContainer" parent="." unique_id=20913569]
+[node name="Grid" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 40
-theme_override_constants/margin_top = 40
-theme_override_constants/margin_right = 40
-theme_override_constants/margin_bottom = 34
+mouse_filter = 2
+script = ExtResource("3_grid")
 
-[node name="Screens" type="Control" parent="UI" unique_id=1222649281]
+[node name="UI" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 34
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 30
+
+[node name="Screens" type="Control" parent="UI"]
 layout_mode = 2
 
-[node name="Home" type="Control" parent="UI/Screens" unique_id=119731916]
+[node name="Home" type="Control" parent="UI/Screens"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -81,62 +119,217 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Box" type="VBoxContainer" parent="UI/Screens/Home" unique_id=1837477950]
+[node name="Box" type="VBoxContainer" parent="UI/Screens/Home"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 12
 alignment = 1
+theme_override_constants/separation = 14
 
-[node name="Logo" type="Label" parent="UI/Screens/Home/Box" unique_id=1174510925]
+[node name="Kicker" type="Label" parent="UI/Screens/Home/Box"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.133333, 0.188235, 0.360784, 1)
-theme_override_fonts/font = SubResource("FV_display")
-theme_override_font_sizes/font_size = 92
+theme_override_colors/font_color = Color(0.796078, 1, 0.239216, 1)
+theme_override_fonts/font = SubResource("FV_mono_bold")
+theme_override_font_sizes/font_size = 15
+text = "// SIMULADOR DE EXCUSAS"
+horizontal_alignment = 1
+
+[node name="Logo" type="Label" parent="UI/Screens/Home/Box"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0.223529, 0.882353, 1, 1)
+theme_override_constants/shadow_offset_x = -8
+theme_override_constants/shadow_offset_y = -8
+theme_override_fonts/font = ExtResource("6_display")
+theme_override_font_sizes/font_size = 96
 text = "COARTADA"
 horizontal_alignment = 1
 
-[node name="Tagline" type="Label" parent="UI/Screens/Home/Box" unique_id=172995025]
+[node name="Stripe" type="HBoxContainer" parent="UI/Screens/Home/Box"]
+custom_minimum_size = Vector2(0, 12)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.45098, 0.478431, 0.54902, 1)
-theme_override_font_sizes/font_size = 30
-text = "Te pillaron. Habla."
+theme_override_constants/separation = 6
+
+[node name="S1" type="ColorRect" parent="UI/Screens/Home/Box/Stripe"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 8.0
+color = Color(0.796078, 1, 0.239216, 1)
+
+[node name="S2" type="ColorRect" parent="UI/Screens/Home/Box/Stripe"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
+color = Color(0.223529, 0.882353, 1, 1)
+
+[node name="S3" type="ColorRect" parent="UI/Screens/Home/Box/Stripe"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+color = Color(1, 0.239216, 0.545098, 1)
+
+[node name="Tagline" type="Label" parent="UI/Screens/Home/Box"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.54902, 0.54902, 0.603922, 1)
+theme_override_font_sizes/font_size = 21
+text = "TE PILLARON. HABLA."
 horizontal_alignment = 1
 
-[node name="HeroWrap" type="MarginContainer" parent="UI/Screens/Home/Box" unique_id=1569564461]
-custom_minimum_size = Vector2(0, 512)
+[node name="Gap" type="Control" parent="UI/Screens/Home/Box"]
+custom_minimum_size = Vector2(0, 26)
 layout_mode = 2
-theme_override_constants/margin_left = 78
-theme_override_constants/margin_right = 78
 
-[node name="HeroCard" type="PanelContainer" parent="UI/Screens/Home/Box/HeroWrap" unique_id=967836357]
-custom_minimum_size = Vector2(0, 512)
+[node name="DiffLabel" type="Label" parent="UI/Screens/Home/Box"]
 layout_mode = 2
-theme_override_styles/panel = SubResource("SB_hero")
+theme_override_colors/font_color = Color(0.54902, 0.54902, 0.603922, 1)
+theme_override_fonts/font = SubResource("FV_mono_bold")
+theme_override_font_sizes/font_size = 13
+text = "DIFICULTAD"
+horizontal_alignment = 1
 
-[node name="Hero" type="TextureRect" parent="UI/Screens/Home/Box/HeroWrap/HeroCard" unique_id=839785913]
+[node name="DiffRow" type="HBoxContainer" parent="UI/Screens/Home/Box"]
 layout_mode = 2
-texture = ExtResource("6_hero")
-expand_mode = 1
-stretch_mode = 5
+theme_override_constants/separation = 8
 
-[node name="PlayButton" type="Button" parent="UI/Screens/Home/Box" unique_id=249748805]
-custom_minimum_size = Vector2(0, 92)
+[node name="DiffFacil" type="Button" parent="UI/Screens/Home/Box/DiffRow"]
+custom_minimum_size = Vector2(0, 62)
 layout_mode = 2
-theme_override_font_sizes/font_size = 36
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.956863, 0.956863, 0.964706, 1)
+theme_override_colors/font_hover_color = Color(0.796078, 1, 0.239216, 1)
+theme_override_colors/font_pressed_color = Color(0.796078, 1, 0.239216, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("SB_ghost")
+theme_override_styles/hover = SubResource("SB_ghost_hover")
+theme_override_styles/pressed = SubResource("SB_ghost_pressed")
+text = "FÁCIL"
+
+[node name="DiffNormal" type="Button" parent="UI/Screens/Home/Box/DiffRow"]
+custom_minimum_size = Vector2(0, 62)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.956863, 0.956863, 0.964706, 1)
+theme_override_colors/font_hover_color = Color(0.796078, 1, 0.239216, 1)
+theme_override_colors/font_pressed_color = Color(0.796078, 1, 0.239216, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("SB_ghost")
+theme_override_styles/hover = SubResource("SB_ghost_hover")
+theme_override_styles/pressed = SubResource("SB_ghost_pressed")
+text = "NORMAL"
+
+[node name="DiffDuro" type="Button" parent="UI/Screens/Home/Box/DiffRow"]
+custom_minimum_size = Vector2(0, 62)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.956863, 0.956863, 0.964706, 1)
+theme_override_colors/font_hover_color = Color(0.796078, 1, 0.239216, 1)
+theme_override_colors/font_pressed_color = Color(0.796078, 1, 0.239216, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("SB_ghost")
+theme_override_styles/hover = SubResource("SB_ghost_hover")
+theme_override_styles/pressed = SubResource("SB_ghost_pressed")
+text = "DURO"
+
+[node name="DiffHint" type="Label" parent="UI/Screens/Home/Box"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.54902, 0.54902, 0.603922, 1)
+theme_override_fonts/font = SubResource("FV_mono")
+theme_override_font_sizes/font_size = 12
+text = "~36 S · HASTA 28 PALABRAS · RESTRICCIONES EN R3"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="TipCard" type="PanelContainer" parent="UI/Screens/Home/Box"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+
+[node name="TipPad" type="MarginContainer" parent="UI/Screens/Home/Box/TipCard"]
+layout_mode = 2
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 16
+
+[node name="Tip" type="Label" parent="UI/Screens/Home/Box/TipCard/TipPad"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.454902, 0.454902, 0.521569, 1)
+theme_override_constants/line_spacing = 6
+theme_override_fonts/font = SubResource("FV_mono")
+theme_override_font_sizes/font_size = 13
+text = "// EL JURADO NO COMPRA UNA EXCUSA SIN UN «PORQUE»"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Space" type="Control" parent="UI/Screens/Home/Box"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PlayButton" type="Button" parent="UI/Screens/Home/Box"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 34
 text = "JUGAR"
 
-[node name="Hint" type="Label" parent="UI/Screens/Home/Box" unique_id=1388149043]
+[node name="SupportCard" type="PanelContainer" parent="UI/Screens/Home/Box"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.45098, 0.478431, 0.54902, 1)
-theme_override_font_sizes/font_size = 21
-text = "3 vidas · 65 puntos para pasar la ronda"
+
+[node name="SupportPad" type="MarginContainer" parent="UI/Screens/Home/Box/SupportCard"]
+layout_mode = 2
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 14
+theme_override_constants/margin_right = 14
+theme_override_constants/margin_bottom = 14
+
+[node name="SupportBox" type="HBoxContainer" parent="UI/Screens/Home/Box/SupportCard/SupportPad"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="SupportText" type="VBoxContainer" parent="UI/Screens/Home/Box/SupportCard/SupportPad/SupportBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_constants/separation = 4
+
+[node name="SupportKicker" type="Label" parent="UI/Screens/Home/Box/SupportCard/SupportPad/SupportBox/SupportText"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.239216, 0.545098, 1)
+theme_override_fonts/font = SubResource("FV_mono_bold")
+theme_override_font_sizes/font_size = 12
+text = "APOYA EL PROYECTO"
+
+[node name="SupportLine" type="Label" parent="UI/Screens/Home/Box/SupportCard/SupportPad/SupportBox/SupportText"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.54902, 0.54902, 0.603922, 1)
+theme_override_font_sizes/font_size = 16
+text = "Si te sacó una risa, invítale un café al que lo hizo."
+autowrap_mode = 3
+
+[node name="SupportButton" type="Button" parent="UI/Screens/Home/Box/SupportCard/SupportPad/SupportBox"]
+custom_minimum_size = Vector2(132, 62)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.956863, 0.956863, 0.964706, 1)
+theme_override_colors/font_hover_color = Color(0.796078, 1, 0.239216, 1)
+theme_override_colors/font_pressed_color = Color(0.796078, 1, 0.239216, 1)
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("SB_ghost")
+theme_override_styles/hover = SubResource("SB_ghost_hover")
+theme_override_styles/pressed = SubResource("SB_ghost_pressed")
+text = "CAFÉ"
+
+[node name="HomeHint" type="Label" parent="UI/Screens/Home/Box"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.415686, 0.415686, 0.470588, 1)
+theme_override_fonts/font = SubResource("FV_mono")
+theme_override_font_sizes/font_size = 11
+text = "3 VIDAS · 65 PTS PARA PASAR"
 horizontal_alignment = 1
 
-[node name="Round" type="Control" parent="UI/Screens" unique_id=1725417460]
+[node name="Round" type="Control" parent="UI/Screens"]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -145,7 +338,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Box" type="VBoxContainer" parent="UI/Screens/Round" unique_id=1435583636]
+[node name="Box" type="VBoxContainer" parent="UI/Screens/Round"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -154,128 +347,180 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 14
 
-[node name="TopBar" type="HBoxContainer" parent="UI/Screens/Round/Box" unique_id=119230034]
-layout_mode = 2
-theme_override_constants/separation = 12
-
-[node name="RoundLabel" type="Label" parent="UI/Screens/Round/Box/TopBar" unique_id=210143121]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.45098, 0.478431, 0.54902, 1)
-theme_override_fonts/font = SubResource("FV_bold")
-theme_override_font_sizes/font_size = 22
-text = "RONDA 1"
-
-[node name="Spacer" type="Control" parent="UI/Screens/Round/Box/TopBar" unique_id=614728940]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Lives" type="Control" parent="UI/Screens/Round/Box/TopBar" unique_id=626830730]
-custom_minimum_size = Vector2(104, 26)
-layout_mode = 2
-size_flags_vertical = 4
-script = ExtResource("3_hearts")
-
-[node name="TimerRow" type="HBoxContainer" parent="UI/Screens/Round/Box" unique_id=1168177276]
+[node name="TopBar" type="HBoxContainer" parent="UI/Screens/Round/Box"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="TimerLabel" type="Label" parent="UI/Screens/Round/Box/TimerRow" unique_id=1681661162]
+[node name="BackButton" type="Button" parent="UI/Screens/Round/Box/TopBar"]
+custom_minimum_size = Vector2(0, 42)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.133333, 0.188235, 0.360784, 1)
-theme_override_fonts/font = SubResource("FV_display")
-theme_override_font_sizes/font_size = 58
-text = "45"
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.54902, 0.54902, 0.603922, 1)
+theme_override_colors/font_hover_color = Color(0.796078, 1, 0.239216, 1)
+theme_override_colors/font_pressed_color = Color(0.796078, 1, 0.239216, 1)
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("SB_ghost")
+theme_override_styles/hover = SubResource("SB_ghost_hover")
+theme_override_styles/pressed = SubResource("SB_ghost_pressed")
+text = "← MENÚ"
 
-[node name="TimerUnit" type="Label" parent="UI/Screens/Round/Box/TimerRow" unique_id=773955291]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.45098, 0.478431, 0.54902, 1)
-theme_override_font_sizes/font_size = 24
-text = "segundos para explicarte"
-vertical_alignment = 2
-
-[node name="TimerSpacer" type="Control" parent="UI/Screens/Round/Box/TimerRow" unique_id=715372346]
+[node name="SpacerA" type="Control" parent="UI/Screens/Round/Box/TopBar"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="WordLimit" type="Label" parent="UI/Screens/Round/Box/TimerRow" unique_id=399751193]
+[node name="RoundLabel" type="Label" parent="UI/Screens/Round/Box/TopBar"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.45098, 0.478431, 0.54902, 1)
-theme_override_font_sizes/font_size = 20
-text = "máx. 30 palabras"
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.54902, 0.54902, 0.603922, 1)
+theme_override_fonts/font = SubResource("FV_mono_bold")
+theme_override_font_sizes/font_size = 14
+text = "RONDA 01"
+
+[node name="SpacerB" type="Control" parent="UI/Screens/Round/Box/TopBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Pips" type="Control" parent="UI/Screens/Round/Box/TopBar"]
+custom_minimum_size = Vector2(88, 22)
+layout_mode = 2
+size_flags_vertical = 4
+script = ExtResource("4_pips")
+align_mode = 2
+
+[node name="TimerRow" type="HBoxContainer" parent="UI/Screens/Round/Box"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="TimerValue" type="Label" parent="UI/Screens/Round/Box/TimerRow"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.796078, 1, 0.239216, 1)
+theme_override_fonts/font = SubResource("FV_mono_bold")
+theme_override_font_sizes/font_size = 66
+text = "42"
+
+[node name="TimerUnit" type="Label" parent="UI/Screens/Round/Box/TimerRow"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.54902, 0.54902, 0.603922, 1)
+theme_override_fonts/font = SubResource("FV_mono_bold")
+theme_override_font_sizes/font_size = 14
+text = "SEG"
 vertical_alignment = 2
 
-[node name="TimerBar" type="ProgressBar" parent="UI/Screens/Round/Box" unique_id=287387283]
+[node name="Spacer" type="Control" parent="UI/Screens/Round/Box/TimerRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="WordLimit" type="Label" parent="UI/Screens/Round/Box/TimerRow"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.54902, 0.54902, 0.603922, 1)
+theme_override_fonts/font = SubResource("FV_mono")
+theme_override_font_sizes/font_size = 13
+text = "MÁX 28"
+vertical_alignment = 2
+
+[node name="SegBar" type="Control" parent="UI/Screens/Round/Box"]
 custom_minimum_size = Vector2(0, 14)
 layout_mode = 2
-max_value = 1.0
-step = 0.001
-value = 1.0
-show_percentage = false
+script = ExtResource("5_segbar")
 
-[node name="Card" type="PanelContainer" parent="UI/Screens/Round/Box" unique_id=1935730448]
+[node name="Card" type="PanelContainer" parent="UI/Screens/Round/Box"]
 layout_mode = 2
 
-[node name="CardPad" type="MarginContainer" parent="UI/Screens/Round/Box/Card" unique_id=317934098]
+[node name="Row" type="HBoxContainer" parent="UI/Screens/Round/Box/Card"]
 layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Accent" type="ColorRect" parent="UI/Screens/Round/Box/Card/Row"]
+custom_minimum_size = Vector2(6, 0)
+layout_mode = 2
+color = Color(0.796078, 1, 0.239216, 1)
+
+[node name="CardPad" type="MarginContainer" parent="UI/Screens/Round/Box/Card/Row"]
+layout_mode = 2
+size_flags_horizontal = 3
 theme_override_constants/margin_left = 22
-theme_override_constants/margin_top = 16
+theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 22
-theme_override_constants/margin_bottom = 24
+theme_override_constants/margin_bottom = 22
 
-[node name="CardBox" type="VBoxContainer" parent="UI/Screens/Round/Box/Card/CardPad" unique_id=1661602706]
+[node name="CardBox" type="VBoxContainer" parent="UI/Screens/Round/Box/Card/Row/CardPad"]
 layout_mode = 2
-theme_override_constants/separation = 6
+theme_override_constants/separation = 10
 
-[node name="Art" type="TextureRect" parent="UI/Screens/Round/Box/Card/CardPad/CardBox" unique_id=1305288313]
-custom_minimum_size = Vector2(0, 232)
+[node name="Title" type="Label" parent="UI/Screens/Round/Box/Card/Row/CardPad/CardBox"]
 layout_mode = 2
-material = SubResource("SM_art")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Title" type="Label" parent="UI/Screens/Round/Box/Card/CardPad/CardBox" unique_id=1766845127]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.133333, 0.188235, 0.360784, 1)
-theme_override_fonts/font = SubResource("FV_display")
-theme_override_font_sizes/font_size = 30
-text = "Título"
-
-[node name="Situation" type="Label" parent="UI/Screens/Round/Box/Card/CardPad/CardBox" unique_id=472992217]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.290196, 0.32549, 0.396078, 1)
-theme_override_constants/line_spacing = 7
-theme_override_font_sizes/font_size = 23
-text = "Situación"
+theme_override_fonts/font = ExtResource("6_display")
+theme_override_font_sizes/font_size = 40
+text = "Llegas 2 horas tarde"
 autowrap_mode = 3
 
-[node name="Input" type="TextEdit" parent="UI/Screens/Round/Box" unique_id=357190041]
+[node name="Subtitle" type="Label" parent="UI/Screens/Round/Box/Card/Row/CardPad/CardBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.54902, 0.54902, 0.603922, 1)
+theme_override_constants/line_spacing = 4
+theme_override_font_sizes/font_size = 19
+text = "Todos ya están sentados."
+autowrap_mode = 3
+
+[node name="Chips" type="HBoxContainer" parent="UI/Screens/Round/Box"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="ChipInclude" type="PanelContainer" parent="UI/Screens/Round/Box/Chips"]
+layout_mode = 2
+
+[node name="ChipIncludeLabel" type="Label" parent="UI/Screens/Round/Box/Chips/ChipInclude"]
+layout_mode = 2
+theme_override_fonts/font = SubResource("FV_mono_bold")
+theme_override_font_sizes/font_size = 13
+text = "USA «ABUELA»"
+
+[node name="ChipExclude" type="PanelContainer" parent="UI/Screens/Round/Box/Chips"]
+layout_mode = 2
+
+[node name="ChipExcludeLabel" type="Label" parent="UI/Screens/Round/Box/Chips/ChipExclude"]
+layout_mode = 2
+theme_override_fonts/font = SubResource("FV_mono_bold")
+theme_override_font_sizes/font_size = 13
+text = "NO USES «TRÁFICO»"
+
+[node name="InputLabel" type="Label" parent="UI/Screens/Round/Box"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.415686, 0.415686, 0.470588, 1)
+theme_override_fonts/font = SubResource("FV_mono_bold")
+theme_override_font_sizes/font_size = 11
+text = "TU COARTADA"
+
+[node name="Input" type="TextEdit" parent="UI/Screens/Round/Box"]
 custom_minimum_size = Vector2(0, 190)
 layout_mode = 2
 size_flags_vertical = 3
-placeholder_text = "Escribe tu coartada..."
+placeholder_text = "escribe tu coartada…"
 wrap_mode = 1
 
-[node name="Footer" type="HBoxContainer" parent="UI/Screens/Round/Box" unique_id=776800384]
+[node name="Footer" type="HBoxContainer" parent="UI/Screens/Round/Box"]
 layout_mode = 2
-theme_override_constants/separation = 12
+theme_override_constants/separation = 10
 
-[node name="WordCount" type="Label" parent="UI/Screens/Round/Box/Footer" unique_id=1632183776]
+[node name="WordCount" type="Label" parent="UI/Screens/Round/Box/Footer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.45098, 0.478431, 0.54902, 1)
-theme_override_font_sizes/font_size = 21
-text = "0 / 30 palabras"
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.54902, 0.54902, 0.603922, 1)
+theme_override_fonts/font = SubResource("FV_mono_bold")
+theme_override_font_sizes/font_size = 13
+text = "0 / 28"
 
-[node name="FooterSpacer" type="Control" parent="UI/Screens/Round/Box/Footer" unique_id=2049665901]
+[node name="FooterSpacer" type="Control" parent="UI/Screens/Round/Box/Footer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="SendButton" type="Button" parent="UI/Screens/Round/Box/Footer" unique_id=1607886074]
-custom_minimum_size = Vector2(210, 76)
+[node name="SendButton" type="Button" parent="UI/Screens/Round/Box/Footer"]
+custom_minimum_size = Vector2(190, 68)
 layout_mode = 2
-theme_override_font_sizes/font_size = 28
+theme_override_font_sizes/font_size = 22
 text = "ENVIAR"
 
-[node name="Result" type="Control" parent="UI/Screens" unique_id=1673987146]
+[node name="Result" type="Control" parent="UI/Screens"]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -292,104 +537,148 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
-theme_override_constants/separation = 14
+theme_override_constants/separation = 12
 
-[node name="VerdictKicker" type="Label" parent="UI/Screens/Result/Box"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.45098, 0.478431, 0.54902, 1)
-theme_override_fonts/font = SubResource("FV_bold")
-theme_override_font_sizes/font_size = 20
-text = "VEREDICTO · RONDA 1"
-horizontal_alignment = 1
+[node name="TopBar" type="HBoxContainer" parent="UI/Screens/Result"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 42.0
+grow_horizontal = 2
+theme_override_constants/separation = 10
 
-[node name="Card" type="PanelContainer" parent="UI/Screens/Result/Box"]
+[node name="BackButton" type="Button" parent="UI/Screens/Result/TopBar"]
+custom_minimum_size = Vector2(0, 42)
 layout_mode = 2
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.54902, 0.54902, 0.603922, 1)
+theme_override_colors/font_hover_color = Color(0.796078, 1, 0.239216, 1)
+theme_override_colors/font_pressed_color = Color(0.796078, 1, 0.239216, 1)
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("SB_ghost")
+theme_override_styles/hover = SubResource("SB_ghost_hover")
+theme_override_styles/pressed = SubResource("SB_ghost_pressed")
+text = "← MENÚ"
 
-[node name="Pad" type="MarginContainer" parent="UI/Screens/Result/Box/Card"]
+[node name="SpacerA" type="Control" parent="UI/Screens/Result/TopBar"]
 layout_mode = 2
-theme_override_constants/margin_left = 26
-theme_override_constants/margin_top = 22
-theme_override_constants/margin_right = 26
-theme_override_constants/margin_bottom = 24
+size_flags_horizontal = 3
 
-[node name="CardBox" type="VBoxContainer" parent="UI/Screens/Result/Box/Card/Pad"]
+[node name="RoundLabel" type="Label" parent="UI/Screens/Result/TopBar"]
 layout_mode = 2
-theme_override_constants/separation = 6
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.54902, 0.54902, 0.603922, 1)
+theme_override_fonts/font = SubResource("FV_mono_bold")
+theme_override_font_sizes/font_size = 12
+text = "RONDA 01"
 
-[node name="Verdict" type="Label" parent="UI/Screens/Result/Box/Card/Pad/CardBox"]
+[node name="SpacerB" type="Control" parent="UI/Screens/Result/TopBar"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.172549, 0.478431, 0.470588, 1)
-theme_override_fonts/font = SubResource("FV_display")
-theme_override_font_sizes/font_size = 42
+size_flags_horizontal = 3
+
+[node name="Stamp" type="PanelContainer" parent="UI/Screens/Result/Box"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="StampPad" type="MarginContainer" parent="UI/Screens/Result/Box/Stamp"]
+layout_mode = 2
+theme_override_constants/margin_left = 22
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 22
+theme_override_constants/margin_bottom = 8
+
+[node name="StampLabel" type="Label" parent="UI/Screens/Result/Box/Stamp/StampPad"]
+layout_mode = 2
+theme_override_fonts/font = SubResource("FV_mono_bold")
+theme_override_font_sizes/font_size = 18
 text = "PASASTE"
-horizontal_alignment = 1
 
-[node name="ScoreRow" type="HBoxContainer" parent="UI/Screens/Result/Box/Card/Pad/CardBox"]
+[node name="ScoreRow" type="HBoxContainer" parent="UI/Screens/Result/Box"]
 layout_mode = 2
 alignment = 1
-theme_override_constants/separation = 4
+theme_override_constants/separation = 6
 
-[node name="ScoreValue" type="Label" parent="UI/Screens/Result/Box/Card/Pad/CardBox/ScoreRow"]
+[node name="ScoreValue" type="Label" parent="UI/Screens/Result/Box/ScoreRow"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.172549, 0.478431, 0.470588, 1)
-theme_override_fonts/font = SubResource("FV_display")
+theme_override_fonts/font = ExtResource("6_display")
 theme_override_font_sizes/font_size = 112
-text = "82"
+text = "0"
 
-[node name="ScoreOf" type="Label" parent="UI/Screens/Result/Box/Card/Pad/CardBox/ScoreRow"]
+[node name="ScoreOf" type="Label" parent="UI/Screens/Result/Box/ScoreRow"]
 layout_mode = 2
 size_flags_vertical = 8
-theme_override_colors/font_color = Color(0.45098, 0.478431, 0.54902, 1)
-theme_override_font_sizes/font_size = 26
+theme_override_colors/font_color = Color(0.54902, 0.54902, 0.603922, 1)
+theme_override_fonts/font = SubResource("FV_mono")
+theme_override_font_sizes/font_size = 20
 text = "/100"
 vertical_alignment = 2
 
-[node name="ScoreCaption" type="Label" parent="UI/Screens/Result/Box/Card/Pad/CardBox"]
+[node name="ScoreCaption" type="Label" parent="UI/Screens/Result/Box"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.45098, 0.478431, 0.54902, 1)
-theme_override_font_sizes/font_size = 20
-text = "necesitas 65 para pasar"
+theme_override_colors/font_color = Color(0.415686, 0.415686, 0.470588, 1)
+theme_override_fonts/font = SubResource("FV_mono")
+theme_override_font_sizes/font_size = 11
+text = "NECESITAS 65 PARA PASAR"
 horizontal_alignment = 1
 
-[node name="Reason" type="Label" parent="UI/Screens/Result/Box/Card/Pad/CardBox"]
-custom_minimum_size = Vector2(0, 62)
+[node name="ReasonsCard" type="PanelContainer" parent="UI/Screens/Result/Box"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.290196, 0.32549, 0.396078, 1)
-theme_override_constants/line_spacing = 6
-theme_override_font_sizes/font_size = 23
+
+[node name="ReasonsPad" type="MarginContainer" parent="UI/Screens/Result/Box/ReasonsCard"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 16
+
+[node name="Reasons" type="Label" parent="UI/Screens/Result/Box/ReasonsCard/ReasonsPad"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.784314, 0.784314, 0.815686, 1)
+theme_override_constants/line_spacing = 5
+theme_override_font_sizes/font_size = 17
 text = "El jurado delibera..."
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="Quote" type="Label" parent="UI/Screens/Result/Box/Card/Pad/CardBox"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.552941, 0.576471, 0.635294, 1)
-theme_override_constants/line_spacing = 4
-theme_override_font_sizes/font_size = 20
-text = "«Tu excusa»"
-horizontal_alignment = 1
-autowrap_mode = 3
-
 [node name="LivesCaption" type="Label" parent="UI/Screens/Result/Box"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.45098, 0.478431, 0.54902, 1)
-theme_override_font_sizes/font_size = 21
-text = "Te quedan 2 vidas"
+theme_override_colors/font_color = Color(0.54902, 0.54902, 0.603922, 1)
+theme_override_fonts/font = SubResource("FV_mono")
+theme_override_font_sizes/font_size = 12
+text = "TE QUEDAN 2 VIDAS"
 horizontal_alignment = 1
 
-[node name="Lives" type="Control" parent="UI/Screens/Result/Box"]
-custom_minimum_size = Vector2(0, 30)
+[node name="Pips" type="Control" parent="UI/Screens/Result/Box"]
+custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
-script = ExtResource("3_hearts")
+script = ExtResource("4_pips")
 
-[node name="NextButton" type="Button" parent="UI/Screens/Result/Box"]
-custom_minimum_size = Vector2(0, 88)
+[node name="Buttons" type="HBoxContainer" parent="UI/Screens/Result/Box"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
+theme_override_constants/separation = 10
+
+[node name="NextButton" type="Button" parent="UI/Screens/Result/Box/Buttons"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 22
 text = "SIGUIENTE"
 
-[node name="Over" type="Control" parent="UI/Screens" unique_id=1810278088]
+[node name="MenuButton" type="Button" parent="UI/Screens/Result/Box/Buttons"]
+custom_minimum_size = Vector2(132, 80)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.956863, 0.956863, 0.964706, 1)
+theme_override_colors/font_hover_color = Color(0.796078, 1, 0.239216, 1)
+theme_override_colors/font_pressed_color = Color(0.796078, 1, 0.239216, 1)
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("SB_ghost")
+theme_override_styles/hover = SubResource("SB_ghost_hover")
+theme_override_styles/pressed = SubResource("SB_ghost_pressed")
+text = "MENÚ"
+
+[node name="Over" type="Control" parent="UI/Screens"]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -398,54 +687,147 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Box" type="VBoxContainer" parent="UI/Screens/Over" unique_id=144522996]
+[node name="Box" type="VBoxContainer" parent="UI/Screens/Over"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 14
 alignment = 1
+theme_override_constants/separation = 14
 
-[node name="HeroWrap" type="MarginContainer" parent="UI/Screens/Over/Box"]
-custom_minimum_size = Vector2(0, 330)
+[node name="OverKicker" type="Label" parent="UI/Screens/Over/Box"]
 layout_mode = 2
-theme_override_constants/margin_left = 96
-theme_override_constants/margin_right = 96
-
-[node name="Hero" type="TextureRect" parent="UI/Screens/Over/Box/HeroWrap"]
-layout_mode = 2
-texture = ExtResource("6_hero")
-expand_mode = 1
-stretch_mode = 5
+theme_override_colors/font_color = Color(1, 0.239216, 0.545098, 1)
+theme_override_fonts/font = SubResource("FV_mono_bold")
+theme_override_font_sizes/font_size = 13
+text = "FIN DE LA PARTIDA"
+horizontal_alignment = 1
 
 [node name="OverTitle" type="Label" parent="UI/Screens/Over/Box"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.133333, 0.188235, 0.360784, 1)
-theme_override_fonts/font = SubResource("FV_display")
-theme_override_font_sizes/font_size = 52
+theme_override_fonts/font = ExtResource("6_display")
+theme_override_font_sizes/font_size = 62
 text = "SE ACABÓ"
 horizontal_alignment = 1
 
-[node name="OverSub" type="Label" parent="UI/Screens/Over/Box" unique_id=137354785]
+[node name="OverSub" type="Label" parent="UI/Screens/Over/Box"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.290196, 0.32549, 0.396078, 1)
-theme_override_font_sizes/font_size = 24
-text = "Se te acabaron las vidas."
+theme_override_colors/font_color = Color(0.784314, 0.784314, 0.815686, 1)
+theme_override_font_sizes/font_size = 19
+text = "Nadie te creyó tres veces."
 horizontal_alignment = 1
 autowrap_mode = 3
 
-[node name="OverStats" type="Label" parent="UI/Screens/Over/Box" unique_id=754528162]
+[node name="OverStats" type="Label" parent="UI/Screens/Over/Box"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.45098, 0.478431, 0.54902, 1)
+theme_override_colors/font_color = Color(0.654902, 0.654902, 0.717647, 1)
 theme_override_constants/line_spacing = 6
-theme_override_font_sizes/font_size = 23
-text = "Pasaste 0 de 0 rondas"
+theme_override_fonts/font = SubResource("FV_mono")
+theme_override_font_sizes/font_size = 15
+text = "PASASTE 0 DE 0 RONDAS"
 horizontal_alignment = 1
 
-[node name="AgainButton" type="Button" parent="UI/Screens/Over/Box" unique_id=1561430359]
+[node name="Gap" type="Control" parent="UI/Screens/Over/Box"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="AgainButton" type="Button" parent="UI/Screens/Over/Box"]
 custom_minimum_size = Vector2(0, 88)
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 26
 text = "OTRA VEZ"
+
+[node name="MenuButton" type="Button" parent="UI/Screens/Over/Box"]
+custom_minimum_size = Vector2(0, 58)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.956863, 0.956863, 0.964706, 1)
+theme_override_colors/font_hover_color = Color(0.796078, 1, 0.239216, 1)
+theme_override_colors/font_pressed_color = Color(0.796078, 1, 0.239216, 1)
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("SB_ghost")
+theme_override_styles/hover = SubResource("SB_ghost_hover")
+theme_override_styles/pressed = SubResource("SB_ghost_pressed")
+text = "← MENÚ"
+
+[node name="Confirm" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Scrim" type="ColorRect" parent="Confirm"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.015686, 0.015686, 0.023529, 0.88)
+
+[node name="Center" type="CenterContainer" parent="Confirm"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="Confirm/Center"]
+custom_minimum_size = Vector2(470, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("SB_dialog")
+
+[node name="Pad" type="MarginContainer" parent="Confirm/Center/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 26
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 26
+theme_override_constants/margin_bottom = 24
+
+[node name="Box" type="VBoxContainer" parent="Confirm/Center/Panel/Pad"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="ConfirmTitle" type="Label" parent="Confirm/Center/Panel/Pad/Box"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_display")
+theme_override_font_sizes/font_size = 30
+text = "¿ABANDONAR?"
+horizontal_alignment = 1
+
+[node name="ConfirmText" type="Label" parent="Confirm/Center/Panel/Pad/Box"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.784314, 0.784314, 0.815686, 1)
+theme_override_font_sizes/font_size = 17
+text = "Se pierde el progreso de esta partida."
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="ConfirmRow" type="HBoxContainer" parent="Confirm/Center/Panel/Pad/Box"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="ConfirmYes" type="Button" parent="Confirm/Center/Panel/Pad/Box/ConfirmRow"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.239216, 0.545098, 1)
+theme_override_colors/font_hover_color = Color(1, 0.239216, 0.545098, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.239216, 0.545098, 1)
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("SB_ghost")
+theme_override_styles/hover = SubResource("SB_ghost_hover")
+theme_override_styles/pressed = SubResource("SB_ghost_pressed")
+text = "SÍ, SALIR"
+
+[node name="ConfirmNo" type="Button" parent="Confirm/Center/Panel/Pad/Box/ConfirmRow"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 15
+text = "SEGUIR"
