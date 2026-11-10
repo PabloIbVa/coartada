@@ -60,4 +60,6 @@ El dueño del juego cambió la dirección del proyecto. Esto manda sobre lo ante
 - **Diseño.** Dark Mode Neo-Brutalist con toques de Neo-Futurismo Tech / arcade cyber minimalista: fondo casi negro con rejilla, bordes rectos de 2 px, sombras duras desplazadas, bloques lima/cian/magenta, tipografía Archivo Black + Space Grotesk + JetBrains Mono.
 - **Pantalla de inicio.** Selector de dificultad (Fácil / Normal / Duro) y un apartado para apoyar al creador con dinero.
 - **Salir.** Botón de regreso al menú durante la ronda (con confirmación: se pierde el progreso) y en el final de partida.
+- **Sonido.** Clic en botones, tic de reloj en los últimos 10 segundos (sube de tono), golpe seco al enviar, tono distinto al pasar y al fallar, doble tono al terminar, y un drone grave sintetizado que se acelera y sube conforme se acaba el tiempo.
+- **Jurado de texto.** La nota sale de seis medidas: sustancia, causa (marcadores como «porque» o razones contadas como «se me olvidó», «no pasó», «tuve que»), datos concretos (hora, lugar, número), cohesión, vocabulario y voz. Sin causa detectable la nota se topa en 58.
 - La ilustración plana del brief original queda como referencia histórica, ya no se usa.

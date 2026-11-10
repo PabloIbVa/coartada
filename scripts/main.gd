@@ -40,11 +40,11 @@ const DIFFICULTY := {
 }
 
 const TIPS: Array = [
-	"// EL JURADO NO COMPRA UNA EXCUSA SIN UN «PORQUE»",
+	"// EL JURADO QUIERE UNA CAUSA: «PORQUE» NO ES LA ÚNICA",
 	"// UNA HORA EXACTA SUENA MÁS REAL QUE «HACE RATO»",
 	"// SI REPITES TRES PALABRAS, SE NOTA",
 	"// LAS PALABRAS PROHIBIDAS SE PUEDEN RODEAR",
-	"// RESPIRA: TIENES MENOS TIEMPO DEL QUE CREES",
+	"// «SE ME OLVIDÓ» TAMBIÉN ES UNA CAUSA",
 ]
 
 @onready var home: Control = $UI/Screens/Home
@@ -98,6 +98,7 @@ const TIPS: Array = [
 
 @onready var confirm_yes: Button = $Confirm/Center/Panel/Pad/Box/ConfirmRow/ConfirmYes
 @onready var confirm_no: Button = $Confirm/Center/Panel/Pad/Box/ConfirmRow/ConfirmNo
+@onready var audio = $Audio
 
 var difficulty: String = "normal"
 var lives_left: int = MAX_LIVES
@@ -113,6 +114,9 @@ var running: bool = false
 var word_limit: int = 28
 var last_result: Dictionary = {}
 var enforcing_limit: bool = false
+var last_tick_second: int = -1
+var include_was_met: bool = false
+var exclude_was_used: bool = false
 var ghost_normal: StyleBoxFlat
 var ghost_hover: StyleBoxFlat
 var ghost_pressed: StyleBoxFlat
@@ -144,8 +148,23 @@ func _ready() -> void:
 	confirm_layer.visible = false
 	_paint_difficulty()
 	_fix_ghost_focus()
+	_hook_sounds()
 	set_process(false)
 	_show_screen(home)
+
+
+func _hook_sounds() -> void:
+	var buttons: Array = [
+		play_button, again_button, send_button, next_button, support_button,
+		diff_facil, diff_normal, diff_duro, back_button, result_back,
+		result_menu, over_menu, confirm_yes, confirm_no,
+	]
+	for button in buttons:
+		button.pressed.connect(_on_ui_click)
+
+
+func _on_ui_click() -> void:
+	audio.play("click", 1.0, -15.0)
 
 
 func _fix_ghost_focus() -> void:
@@ -268,6 +287,8 @@ func _next_round() -> void:
 	word_limit_label.text = "MÁX %d" % word_limit
 
 	restriction = _pick_restriction()
+	include_was_met = false
+	exclude_was_used = false
 
 	excuse_input.text = ""
 	excuse_input.editable = true
@@ -282,10 +303,13 @@ func _next_round() -> void:
 	seg_bar.fill_color = LIME
 	timer_value.text = str(int(ceil(time_total)))
 	timer_value.add_theme_color_override("font_color", LIME)
+	last_tick_second = -1
 
 	_show_screen(round_screen)
 	running = true
 	set_process(true)
+	audio.play("start", 1.3, -13.0)
+	audio.start_bed()
 	await get_tree().process_frame
 	if excuse_input.is_inside_tree():
 		excuse_input.grab_focus()
@@ -332,6 +356,10 @@ func _refresh_chips() -> void:
 
 	if not include_word.is_empty():
 		var met: bool = Scoring.uses_word(written, include_word)
+		if met != include_was_met:
+			include_was_met = met
+			if met:
+				audio.play("click", 1.9, -18.0)
 		chip_include_label.text = ("✓ USA «%s»" if met else "USA «%s»") % include_word.to_upper()
 		if met:
 			_style_chip(chip_include, chip_include_label, CYAN, CYAN, NIGHT)
@@ -340,6 +368,10 @@ func _refresh_chips() -> void:
 
 	if not exclude_word.is_empty():
 		var used: bool = Scoring.uses_word(written, exclude_word)
+		if used != exclude_was_used:
+			exclude_was_used = used
+			if used:
+				audio.play("fail", 0.55, -15.0)
 		chip_exclude_label.text = ("✗ USASTE «%s»" if used else "NO USES «%s»") % exclude_word.to_upper()
 		if used:
 			_style_chip(chip_exclude, chip_exclude_label, MAGENTA, MAGENTA, NIGHT)
@@ -370,6 +402,11 @@ func _paint_timer() -> void:
 	var urgent: bool = time_left <= 8.0
 	seg_bar.fill_color = MAGENTA if urgent else LIME
 	timer_value.add_theme_color_override("font_color", MAGENTA if urgent else LIME)
+	audio.set_tension(ratio)
+	var seconds: int = int(ceil(time_left))
+	if seconds <= 10 and seconds > 0 and seconds != last_tick_second:
+		last_tick_second = seconds
+		audio.play("tick", 1.3 + float(10 - seconds) * 0.05, -14.0)
 
 
 func _on_text_changed() -> void:
@@ -421,6 +458,8 @@ func _submit() -> void:
 	running = false
 	set_process(false)
 	excuse_input.editable = false
+	audio.stop_bed()
+	audio.play("submit", 0.92, -7.0)
 	last_result = Scoring.evaluate(
 		excuse_input.text,
 		word_limit,
@@ -482,6 +521,16 @@ func _paint_result() -> void:
 	else:
 		next_button.text = "OTRA COARTADA"
 
+	if passed:
+		audio.play("pass", 1.28, -10.0)
+		get_tree().create_timer(0.09).timeout.connect(_play_pass_tail)
+	else:
+		audio.play("fail", 0.95, -6.0)
+
+
+func _play_pass_tail() -> void:
+	audio.play("pass", 1.6, -13.0)
+
 
 func _on_next() -> void:
 	if lives_left <= 0:
@@ -494,6 +543,8 @@ func _on_next() -> void:
 func _paint_over() -> void:
 	over_title.text = "SE ACABÓ"
 	over_sub.text = "Nadie te creyó tres veces."
+	audio.play("over", 0.55, -6.0)
+	get_tree().create_timer(0.26).timeout.connect(_play_over_tail)
 	var stats: Array = []
 	stats.append("PASASTE %d DE %d RONDAS" % [rounds_passed, round_number])
 	if best_score > 0:
@@ -502,10 +553,15 @@ func _paint_over() -> void:
 	over_stats.text = "\n".join(PackedStringArray(stats))
 
 
+func _play_over_tail() -> void:
+	audio.play("over", 0.42, -8.0)
+
+
 func _ask_abandon() -> void:
 	if not running:
 		return
 	running = false
+	audio.stop_bed()
 	confirm_layer.visible = true
 	confirm_yes.grab_focus()
 
@@ -514,6 +570,7 @@ func _cancel_abandon() -> void:
 	confirm_layer.visible = false
 	if round_screen.visible:
 		running = true
+		audio.start_bed()
 		excuse_input.grab_focus()
 
 
@@ -525,6 +582,7 @@ func _confirm_abandon() -> void:
 func _go_home() -> void:
 	running = false
 	set_process(false)
+	audio.stop_bed()
 	_show_screen(home)
 
 
