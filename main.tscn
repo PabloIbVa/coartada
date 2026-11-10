@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://n1kkkpcef6no" path="res://scripts/segbar.gd" id="5_segbar"]
 [ext_resource type="FontFile" uid="uid://lf24oy5mi1mf" path="res://assets/fonts/ArchivoBlack.ttf" id="6_display"]
 [ext_resource type="FontFile" uid="uid://rmopkikl0v1d" path="res://assets/fonts/JetBrainsMono.ttf" id="7_mono"]
-[ext_resource type="Script" path="res://scripts/audio.gd" id="8_audio"]
+[ext_resource type="Script" uid="uid://cg2emnjcrkoot" path="res://scripts/audio.gd" id="8_audio"]
 
 [sub_resource type="FontVariation" id="FV_mono_bold"]
 base_font = ExtResource("7_mono")
@@ -829,5 +829,5 @@ size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 15
 text = "SEGUIR"
 
-[node name="Audio" type="Node" parent="."]
+[node name="Audio" type="Node" parent="." unique_id=639761935]
 script = ExtResource("8_audio")
