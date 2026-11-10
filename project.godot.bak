@@ -34,6 +34,7 @@ project/assembly_name="Coartada"
 [rendering]
 
 rendering_device/driver.windows="d3d12"
+textures/vram_compression/import_etc2_astc=true
 environment/defaults/default_clear_color="f4f1ea"
 
 [summer]

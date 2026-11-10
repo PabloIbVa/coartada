@@ -1,78 +1,13 @@
-[gd_resource type="Theme" load_steps=15 format=3]
+[gd_resource type="Theme" format=3 uid="uid://dlncl6lbhhxip"]
 
-[ext_resource type="FontFile" path="res://assets/fonts/SpaceGrotesk.ttf" id="1_space"]
-[ext_resource type="FontFile" path="res://assets/fonts/JetBrainsMono.ttf" id="2_mono"]
-
-[sub_resource type="FontVariation" id="FV_body"]
-base_font = ExtResource("1_space")
-variation_opentype = {
-2003265652: 400.0
-}
-
-[sub_resource type="FontVariation" id="FV_body_bold"]
-base_font = ExtResource("1_space")
-variation_opentype = {
-2003265652: 700.0
-}
-
-[sub_resource type="FontVariation" id="FV_mono"]
-base_font = ExtResource("2_mono")
-variation_opentype = {
-2003265652: 400.0
-}
+[ext_resource type="FontFile" uid="uid://d0dhp1r2y50br" path="res://assets/fonts/SpaceGrotesk.ttf" id="1_space"]
+[ext_resource type="FontFile" uid="uid://rmopkikl0v1d" path="res://assets/fonts/JetBrainsMono.ttf" id="2_mono"]
 
 [sub_resource type="FontVariation" id="FV_mono_bold"]
 base_font = ExtResource("2_mono")
 variation_opentype = {
 2003265652: 700.0
 }
-
-[sub_resource type="StyleBoxEmpty" id="SB_empty"]
-
-[sub_resource type="StyleBoxFlat" id="SB_btn_normal"]
-content_margin_left = 26.0
-content_margin_top = 18.0
-content_margin_right = 26.0
-content_margin_bottom = 18.0
-bg_color = Color(0.796078, 1, 0.239216, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.031373, 0.031373, 0.039216, 1)
-shadow_color = Color(0.223529, 0.882353, 1, 1)
-shadow_size = 0
-shadow_offset = Vector2(6, 6)
-
-[sub_resource type="StyleBoxFlat" id="SB_btn_hover"]
-content_margin_left = 26.0
-content_margin_top = 18.0
-content_margin_right = 26.0
-content_margin_bottom = 18.0
-bg_color = Color(0.878431, 1, 0.521569, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.031373, 0.031373, 0.039216, 1)
-shadow_color = Color(0.223529, 0.882353, 1, 1)
-shadow_size = 0
-shadow_offset = Vector2(7, 7)
-
-[sub_resource type="StyleBoxFlat" id="SB_btn_pressed"]
-content_margin_left = 26.0
-content_margin_top = 19.0
-content_margin_right = 26.0
-content_margin_bottom = 17.0
-bg_color = Color(0.662745, 0.839216, 0.176471, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.031373, 0.031373, 0.039216, 1)
-shadow_color = Color(0.223529, 0.882353, 1, 1)
-shadow_size = 0
-shadow_offset = Vector2(2, 2)
 
 [sub_resource type="StyleBoxFlat" id="SB_btn_disabled"]
 content_margin_left = 26.0
@@ -86,6 +21,56 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0.164706, 0.164706, 0.2, 1)
 
+[sub_resource type="StyleBoxEmpty" id="SB_empty"]
+
+[sub_resource type="StyleBoxFlat" id="SB_btn_hover"]
+content_margin_left = 26.0
+content_margin_top = 18.0
+content_margin_right = 26.0
+content_margin_bottom = 18.0
+bg_color = Color(0.878431, 1, 0.521569, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.031373, 0.031373, 0.039216, 1)
+shadow_color = Color(0.223529, 0.882353, 1, 1)
+shadow_offset = Vector2(7, 7)
+
+[sub_resource type="StyleBoxFlat" id="SB_btn_normal"]
+content_margin_left = 26.0
+content_margin_top = 18.0
+content_margin_right = 26.0
+content_margin_bottom = 18.0
+bg_color = Color(0.796078, 1, 0.239216, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.031373, 0.031373, 0.039216, 1)
+shadow_color = Color(0.223529, 0.882353, 1, 1)
+shadow_offset = Vector2(6, 6)
+
+[sub_resource type="StyleBoxFlat" id="SB_btn_pressed"]
+content_margin_left = 26.0
+content_margin_top = 19.0
+content_margin_right = 26.0
+content_margin_bottom = 17.0
+bg_color = Color(0.662745, 0.839216, 0.176471, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.031373, 0.031373, 0.039216, 1)
+shadow_color = Color(0.223529, 0.882353, 1, 1)
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="FontVariation" id="FV_body"]
+base_font = ExtResource("1_space")
+variation_opentype = {
+2003265652: 400.0
+}
+
 [sub_resource type="StyleBoxFlat" id="SB_panel"]
 bg_color = Color(0.062745, 0.062745, 0.082353, 1)
 border_width_left = 2
@@ -94,17 +79,11 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0.156863, 0.156863, 0.192157, 1)
 
-[sub_resource type="StyleBoxFlat" id="SB_input"]
-content_margin_left = 20.0
-content_margin_top = 16.0
-content_margin_right = 20.0
-content_margin_bottom = 16.0
-bg_color = Color(0.043137, 0.043137, 0.054902, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.168627, 0.168627, 0.211765, 1)
+[sub_resource type="FontVariation" id="FV_mono"]
+base_font = ExtResource("2_mono")
+variation_opentype = {
+2003265652: 400.0
+}
 
 [sub_resource type="StyleBoxFlat" id="SB_input_focus"]
 content_margin_left = 20.0
@@ -118,30 +97,42 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0.223529, 0.882353, 1, 1)
 
+[sub_resource type="StyleBoxFlat" id="SB_input"]
+content_margin_left = 20.0
+content_margin_top = 16.0
+content_margin_right = 20.0
+content_margin_bottom = 16.0
+bg_color = Color(0.043137, 0.043137, 0.054902, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.168627, 0.168627, 0.211765, 1)
+
 [resource]
 default_font = SubResource("FV_body")
 default_font_size = 22
 Button/colors/font_color = Color(0.031373, 0.031373, 0.039216, 1)
+Button/colors/font_disabled_color = Color(0.337255, 0.337255, 0.384314, 1)
+Button/colors/font_focus_color = Color(0.031373, 0.031373, 0.039216, 1)
 Button/colors/font_hover_color = Color(0.031373, 0.031373, 0.039216, 1)
 Button/colors/font_pressed_color = Color(0.031373, 0.031373, 0.039216, 1)
-Button/colors/font_focus_color = Color(0.031373, 0.031373, 0.039216, 1)
-Button/colors/font_disabled_color = Color(0.337255, 0.337255, 0.384314, 1)
 Button/font_sizes/font_size = 24
 Button/fonts/font = SubResource("FV_mono_bold")
-Button/styles/normal = SubResource("SB_btn_normal")
-Button/styles/hover = SubResource("SB_btn_hover")
-Button/styles/pressed = SubResource("SB_btn_pressed")
 Button/styles/disabled = SubResource("SB_btn_disabled")
 Button/styles/focus = SubResource("SB_empty")
+Button/styles/hover = SubResource("SB_btn_hover")
+Button/styles/normal = SubResource("SB_btn_normal")
+Button/styles/pressed = SubResource("SB_btn_pressed")
 Label/colors/font_color = Color(0.956863, 0.956863, 0.964706, 1)
-Label/fonts/font = SubResource("FV_body")
 Label/font_sizes/font_size = 22
+Label/fonts/font = SubResource("FV_body")
 PanelContainer/styles/panel = SubResource("SB_panel")
+TextEdit/colors/caret_color = Color(0.796078, 1, 0.239216, 1)
 TextEdit/colors/font_color = Color(0.956863, 0.956863, 0.964706, 1)
 TextEdit/colors/font_placeholder_color = Color(0.415686, 0.415686, 0.470588, 1)
-TextEdit/colors/caret_color = Color(0.796078, 1, 0.239216, 1)
 TextEdit/colors/selection_color = Color(0.796078, 1, 0.239216, 0.25)
 TextEdit/font_sizes/font_size = 24
 TextEdit/fonts/font = SubResource("FV_mono")
-TextEdit/styles/normal = SubResource("SB_input")
 TextEdit/styles/focus = SubResource("SB_input_focus")
+TextEdit/styles/normal = SubResource("SB_input")
